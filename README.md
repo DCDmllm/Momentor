@@ -1,5 +1,9 @@
 # Momentor
 
+The official repository of paper [Momentor: Advancing Video Large Language Model with Fine-Grained Temporal Reasoning](http://arxiv.org/abs/2402.11435).
+
+Code and dataset will be available soon.
+
 
 ## Momentor Overview
 
