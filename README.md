@@ -18,8 +18,41 @@ We present Moment-10M, a large-scale video instruction dataset with segment-leve
 
 <img src="images/data_generation_engine.jpg"  width="100%">
 
-Moment-10M will be released soon.
 
+We have temporarily released half of the Moment-10M dataset, and the remaining half will be made available soon after we finalize our processing. You can download the dataset from [here](https://drive.google.com/file/d/1wLfRLmQNsq7_ckLdoAgwVFCqn-nwWdqF/view?usp=sharing).
+
+
+After downloading and extracting the dataset to obtain the data files, you can use [convert_data.py](scripts/convert_data.py) to transform the data into a text dialogue format and [download_videos.py](scripts/download_videos.py) to download the corresponding video files. The usage for these scripts is as follows:
+
+```bash
+python convert_data.py --source_path <path_to_data_file> --target_path <path_to_converted_file>
+```
+**Parameters:**
+
+- `--source_path`: The path to the input data file that needs to be converted.
+- `--target_path`: The path where the converted file will be saved. 
+
+```bash
+python download_videos.py --source_path <path_to_data_file> --video_path <path_to_store_videos>
+```
+**Parameters:**
+
+- `--source_path`: The path to the input data file containing identifiers for the videos.
+- `--video_path`: The path where the downloaded video files will be stored.
+
+## Citation
+If you found our work useful in your research, please consider giving this repository a star and citing our paper as followed:
+
+```
+@misc{qian2024momentor,
+      title={Momentor: Advancing Video Large Language Model with Fine-Grained Temporal Reasoning}, 
+      author={Long Qian and Juncheng Li and Yu Wu and Yaobo Ye and Hao Fei and Tat-Seng Chua and Yueting Zhuang and Siliang Tang},
+      year={2024},
+      eprint={2402.11435},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV}
+}
+```
 
 ## Acknowledgment
 Thanks to the open source of the following projects:
