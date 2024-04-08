@@ -18,7 +18,7 @@ We present Moment-10M, a large-scale video instruction dataset with segment-leve
 <img src="images/data_generation_engine.jpg"  width="100%">
 
 
-We are releasing our Moment-10M dataset, you can download from the following links:
+We are releasing our Moment-10M dataset, you can download it from the following links:
 [part1](https://drive.google.com/file/d/1wLfRLmQNsq7_ckLdoAgwVFCqn-nwWdqF/view?usp=sharing), 
 [part2](https://drive.google.com/file/d/1c_SN9nm6acVD47rGJh6qal117QC346fV/view?usp=sharing).
 
