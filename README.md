@@ -22,6 +22,9 @@ We are releasing our Moment-10M dataset, you can download it from the following 
 [part1](https://drive.google.com/file/d/1wLfRLmQNsq7_ckLdoAgwVFCqn-nwWdqF/view?usp=sharing), 
 [part2](https://drive.google.com/file/d/1c_SN9nm6acVD47rGJh6qal117QC346fV/view?usp=sharing).
 
+You can also download the data for Grounded Event-Sequence Modeling here:
+[GESM](https://drive.google.com/file/d/180S871yisgAoXx6n0CoPMydBUiWAc0Pc/view?usp=sharing).
+
 
 After downloading and extracting the dataset to obtain the data files, you can use [convert_data.py](scripts/convert_data.py) to transform the data into a text dialogue format and [download_videos.py](scripts/download_videos.py) to download the corresponding video files. The usage for these scripts is as follows:
 
@@ -40,6 +43,17 @@ python download_videos.py --source_path <path_to_data_file> --video_path <path_t
 
 - `--source_path`: The path to the input data file containing identifiers for the videos.
 - `--video_path`: The path where the downloaded video files will be stored.
+
+For GESM data extraction, use [convert_data_gesm.py](scripts/convert_data_gesm.py) as follows:
+
+```bash
+python convert_data_gesm.py --source_path <path_to_data_file> --target_path <path_to_converted_file>
+```
+
+**Parameters:**
+
+- `--source_path`: The path to the input data file that needs to be converted.
+- `--target_path`: The path where the converted file will be saved. 
 
 ## Citation
 If you found our work useful in your research, please consider giving this repository a star and citing our paper as followed:
