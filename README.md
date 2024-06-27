@@ -1,8 +1,6 @@
-# Momentor
+# Momentor (ICML 2024)
 
 The official repository of paper [Momentor: Advancing Video Large Language Model with Fine-Grained Temporal Reasoning](http://arxiv.org/abs/2402.11435).
-
-Code will be available soon.
 
 ## Momentor Overview
 
@@ -10,6 +8,19 @@ Momentor is a Video-LLM designed for fine-grained comprehension and localization
 
 <img src="images/Momentor.jpg"  width="100%">
 
+## Installation
+
+Git clone our repository and creating conda environment:
+```shell
+cd Momentor/momentor
+conda create --name=momentor python=3.10
+conda activate momentor
+pip install -r requirements.txt
+```
+
+## Training
+
+For training instructions, check out [train_momentor.md](docs/train_momentor.md).
 
 ## Moment-10M
 
