@@ -131,7 +131,7 @@ class YTTDataset(object):
         return len(self.instruction_data)
     
     def get_video_info(self, video_name):
-        return np.load(os.path.join(self.feature_dir, f'{video_name}'.npy), allow_pickle=True).tolist()
+        return np.load(os.path.join(self.feature_dir, f'{video_name}.npy'), allow_pickle=True).tolist()
     
     def get_instruction(self, index):
         assert index < self.get_num_instructions()
@@ -277,23 +277,19 @@ model_args, data_args, training_args = parser.parse_args_into_dataclasses()
 with open(data_args.data_dir, 'r') as f:
     instruction_data = json.load(f)
 
-qa_types = ['qa_data', 'instance_qa_data', 'cross_segment_qa_data']
 packed_instruction_data = []
 for video_name in tqdm(instruction_data):
     for key in instruction_data[video_name]:
         for dialogue in instruction_data[video_name][key]:
-            text_dialogue = dialogue['dialogue']
-            backbone = dialogue['prototype']['backbone']
-            if key in qa_types:
-                backbone[0]['User'] = re.sub(r'(' + re.escape(sent_tokenize(text_dialogue[0]['User'])[0]) + r') +', '', backbone[0]['User'])
+            backbone = dialogue['conversations']
             packed_instruction_data.append({
                 'id' : video_name,
                 'data_type' : key,
-                'moment' : dialogue['prototype']['variables'].get('moment', None),
-                'click_position' : dialogue['prototype']['variables'].get('click_position', None),
-                'instance_class' : dialogue['prototype']['variables'].get('instance_class', None),
-                'SOURCE_CLIP' : dialogue['prototype']['variables'].get('SOURCE_CLIP', None),
-                'content' : dialogue['prototype']['variables'].get('content', None),
+                'moment' : dialogue['variables'].get('moment', None),
+                'click_position' : dialogue['variables'].get('click_position', None),
+                'instance_class' : dialogue['variables'].get('instance_class', None),
+                'SOURCE_CLIP' : dialogue['variables'].get('SOURCE_CLIP', None),
+                'content' : dialogue['variables'].get('content', None),
                 'conversations' : backbone,
             })
 
@@ -321,7 +317,6 @@ vision_config = model_vision_dict['vision_config']
 model.initialize_vision_tokenizer(
     tokenizer=tokenizer,
     device=training_args.device,
-    cache_dir=training_args.cache_dir,
     pretrain_mm_mlp_adapter=model_args.pretrain_mm_mlp_adapter
 )
 model.initialize_temporal_tokens(tokenizer=tokenizer, num_temporal_tokens=model_args.num_temporal_tokens)
@@ -334,7 +329,7 @@ model.model.temporal_output_embeddings = torch.nn.Linear(model.model.embed_token
 model._init_weights(model.model.temporal_input_embeddings)
 model._init_weights(model.model.temporal_output_embeddings)
 
-ytt_dataset = YTTDataset(instruction_data, data_args.feature_dir)
+ytt_dataset = YTTDataset(packed_instruction_data, data_args.feature_dir)
 mixed_dataloader = InstructionLoader(ytt_dataset, tokenizer, video_token_len=DataArguments.num_sampled_frames)
 data_module = make_supervised_data_module(
     ytt_dataset, 

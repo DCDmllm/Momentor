@@ -1,7 +1,6 @@
 import dataclasses
 from enum import auto, Enum
 from typing import List
-from momentor.eval.model_utils import load_video
 
 class SeparatorStyle(Enum):
     """Different separator style."""
@@ -61,19 +60,6 @@ class Conversation:
 
     def append_message(self, role, message):
         self.messages.append([role, message])
-
-    def get_video_frames(self, n_clips=1, num_frm=100):
-        video_frames = []
-        for i, (role, msg) in enumerate(self.messages[self.offset:]):
-            if i % 2 == 0:
-                if type(msg) is tuple:
-                    msg, video_path = msg
-
-                    clip_imgs = load_video(video_path, n_clips, num_frm)
-
-                    for image in clip_imgs:
-                        video_frames.append(image)
-        return video_frames
 
     def to_gradio_chatbot(self):
         ret = []
